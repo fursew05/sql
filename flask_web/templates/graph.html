@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h>온라인 그래프</h>
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            // labels는 x축 데이터
+            labels: {{x | tojson}},
+            datasets: [{
+              label: 'online',
+            //  data는 y축 데이터
+              data: {{online_y | tojson}},
+              borderWidth: 1
+            },{
+              label: 'offline',
+            //  data는 y축 데이터
+              data: {{offline_y | tojson}},
+              borderWidth: 1
+            }
+        ]
+          }
+          
+        });
+      </script>
+</body>
+</html>

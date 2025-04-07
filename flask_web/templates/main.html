@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="location.href='/graph'">페이지 이동</button>
+    <h1>main page<h1>
+    <p>
+        <!-- 로그인을 한 유저의 이름을 보여주고 안녕하세요를 추가 -->
+         {{name}}님 안녕하세요!
+    </p>
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            // labels는 x축 데이터
+            labels: {{x_data | tojson}},
+            datasets: [{
+              label: '# of Votes',
+            //  data는 y축 데이터
+              data: {{y_data | tojson}},
+              borderWidth: 1
+            }]
+          }
+          
+        });
+      </script>
+      
+    <!-- 기본적인 테이블 태그 -->
+     <table border="1">
+        <tr>
+            <!-- columns의 개수만큼 반복실행하여 th 태그를 생성 -->
+            {% for col in columns %}
+                <th>{{col}}</th>
+            {% endfor %}           
+        </tr>
+        <!-- for문 시작 -->
+        <tr>
+            {% for row_data in td_data%}
+                <tr>
+                    {%for key in row_data.keys()%}
+                    <td>{{row_data[key]}}</td>
+                    {%endfor%}
+                </tr>
+            {% endfor %}
+        </tr>
+        <!-- for문 종료 -->
+     </table>
+</body>
+</html>
